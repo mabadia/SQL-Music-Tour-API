@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const MeetGreet = require('./MeetGreet');
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
     /**
@@ -15,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: "event_id",
           as: "stages", 
           through: StageEvent
+      })
+      Event.hasMany(MeetGreet, {
+        foreignKey:'event_id',
+        as: 'meet_greets'
+      })
+      Event.hasMany(SetTime, {
+        foreignKey:'event_id',
+        as: 'set_times'
       })
   }
   }
