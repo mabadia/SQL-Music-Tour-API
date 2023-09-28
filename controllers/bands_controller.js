@@ -41,6 +41,10 @@ bands.get('/:name', async (req, res) => {
                     where: { name: { [Op.like]: `%${req.query.event ? req.query.event : ''}%` } }
                 }
             }
+            ],
+            order: [
+                [{ model: MeetGreet, as: "meet_greets" }, { model: Event, as: "event" }, 'date', 'DESC'],
+                [{ model: SetTime, as: "set_times" }, { model: Event, as: "event" }, 'date', 'DESC']
             ]
         })
         res.status(200).json(foundBand)
